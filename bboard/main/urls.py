@@ -10,6 +10,7 @@ from .views import RegisterUserView, RegisterDoneView
 from .views import DeleteUserView
 from .views import user_activate
 from .views import by_rubric
+from django.conf.urls.static import static
 
 
 app_name = 'main'
@@ -33,3 +34,7 @@ urlpatterns = [
    path('<int:pk>/', by_rubric, name='by_rubric'),
    path('<str:page>/', other_page, name='other'),
 ]
+
+if settings.DEBUG:
+   urlpatterns.append(path('static/<path:path>', never_cache(serve)))
+   urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
